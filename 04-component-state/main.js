@@ -81,11 +81,52 @@ class Greeting extends Component {
     );
   }
 }
+function getTime() {
+  const date = new Date();
+  
+  /*const  minute =  date.getMinutes();
+  const  second =  date.getSeconds();
+  const  hour =  date.getHours();
+  return `${hour}:${minute}:${second}`;*/
+  return date.toLocaleTimeString();
+}
 
 class Clock extends Component {
+  constructor() {
+const date = new Date();
+    super();
+    this.state = {
+      hours: date.getHours(),
+      minutes: date.getMinutes(),
+      seconds: date.getSeconds(),
+    };
+  }
+
+   componentDidMount() {
+    setInterval(() => {
+      const time = getTime();
+      // this.setState accepts a function in which we return the new
+      // state object.
+      this.setState((previousState) => {
+        const date = new Date();
+        const seconds =  date.getSeconds();
+        if (seconds === previousState.seconds) {
+          return previousState;
+        } else {
+          return {
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+            seconds: seconds,
+          };
+        }
+      });
+    }, 1000);
+  }
+
   render() {
+    const {hours, minutes, seconds} = this.state;
     return (
-      <div>3:15:13</div>
+      <div>{hours}:{minutes}:{seconds}</div>
     )
   }
 }

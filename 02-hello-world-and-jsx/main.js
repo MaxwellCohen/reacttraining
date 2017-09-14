@@ -43,10 +43,12 @@ import ReactDOM from 'react-dom';
 // (divs, img, table, links)
 
 ReactDOM.render(
-  React.createElement(
-    'h1', // The type of the component
-    {},   // Props (Extra We'll learn about these later)
-    'Hi!' // The component children
-  ),
+    <div>
+    <h1>Hot MTA Tips</h1>
+    <ul>
+      <li>On a crowded train enter the car at one of the center doors</li>
+      <li>Stay on the 6 train at City Hall and you'll see the old station when the train turns around</li>
+    </ul>
+    </div>,
   document.getElementById('root')
 );

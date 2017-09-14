@@ -21,13 +21,57 @@ console.log(movies);
 class App extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      genreFilter: ''
+    };
+    this.test('a');
+    this.setSciFifitler = this.setSciFifitler.bind(this);
+    this.setGenreFilter = debounce(this.setGenreFilter, 200).bind(this);
+  }
+
+  setSciFifitler() {
+    console.log('click');
+    this.setGenreFilter('Sci-Fi')
+  } 
+
+
+  setGenreFilter(type) {
+    this.setState((prevState) => {
+      let gen = prevState.genreFilter;
+      type = type + '|'
+      if(!gen.includes(type)) {
+        gen = gen + type;
+      } else {
+        gen = gen.replace(type, '')
+      }
+      var newState = Object.assign({}, prevState, {genreFilter:gen})
+      return newState;
+    })
   }
 
   render() {
+    let gf = this.state.genreFilter.split('|');
+    let displayedMovies = movies.filter((m) => {
+      let shouldShow = true
+      if (gf[0]) {
+        for (let i = 0; i < gf.length; i++) {
+          if (gf[i]) {
+            shouldShow = m.genre.includes(gf[i]);
+            break;
+          }
+        }
+      } 
+      return shouldShow
+    })
     return (
       <div className="App">
         <h1>What&#39;s on Netflix?</h1>
+        <div>
+        <button onClick={this.setSciFifitler}>Sci-Fi</button>
+        </div>
+        <ul >
+          {displayedMovies.map((movie) => <li key={`title-${movie.title}${movie.rating}`}>{movie.rating} -- {movie.title} -- {movie.genre}</li>)}
+        </ul>
       </div>
     );
   }

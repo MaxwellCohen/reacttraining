@@ -5,8 +5,8 @@
 //
 // Step 2: Change the string to a template literal.
 function printMovieInfo(movie) {
-  const { title, star } = movie;
-  console.log(title + " starring " + star);
+  const { title, star, year } = movie;
+  console.log(`${title}(${year}) starting ${star}`);
 }
 
 printMovieInfo({
@@ -18,8 +18,8 @@ printMovieInfo({
 // EXERCISE: convert the variable definitions in this function
 // to use the const and let keywords instead of var.
 function talkLikeMatthewMcConaughey() {
-  var alright = 'alright';
-  for (var i = 0; i <= 2; i++) {
+  const alright = 'alright';
+  for (let i = 0; i <= 2; i++) {
     console.log(alright);
   }
 }
@@ -30,10 +30,13 @@ talkLikeMatthewMcConaughey();
 // Log the output of a dog barking to the console.
 //
 class Dog {
+  bark() {
+    return 'woof woof';
+  }
   render() {
     return `▼・ᴥ・▼`;
   }
 }
 
 const sparky = new Dog();
-console.log( sparky.render() );
+console.log( sparky.bark() );

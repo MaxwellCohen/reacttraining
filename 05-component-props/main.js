@@ -48,9 +48,17 @@ class Clock extends Component {
   }
 
   render() {
-    const { hour, minute, second } = this.state;
+    let { hour, minute, second } = this.state;
+    let suffix = '';
+    if (this.props.twelveHourClock) {
+      suffix = 'AM';
+      if (hour > 12) {
+        hour = hour - 12;
+        suffix = 'PM'; 
+      }
+    }
     return (
-      <div>{hour}:{minute}:{second}</div>
+      <div>{hour}:{minute}:{second} {suffix}</div>
     );
   }
 }
@@ -65,6 +73,9 @@ ReactDOM.render(
   <div>
     <Clock
       twelveHourClock={true}
+    />
+     <Clock
+      twelveHourClock={false}
     />
   </div>,
   document.getElementById('root')

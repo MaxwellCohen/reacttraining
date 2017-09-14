@@ -5,7 +5,13 @@ import ReactDOM from 'react-dom';
 //
 // Create a own component class for a <Clock> which returns a hardcoded
 // time (eg. 3:10 or 7:15) and add it into the component tree.
-
+class Clock extends Component {
+  render() {
+    return (
+      <div>5:00 pm</div>
+    );
+  }
+}
 
 // We can create custom component types by creating a child component
 // of React's Component class.
@@ -26,6 +32,7 @@ class SiteHeader extends Component {
             <li><a href="contact-us">Pictures of Frank</a></li>
           </ul>
         </nav>
+        <Clock/>
       </div>
     );
   }
@@ -33,6 +40,7 @@ class SiteHeader extends Component {
 
 ReactDOM.render(
   <div>
+    <Clock />
     <SiteHeader />
   </div>,
   document.getElementById('root')

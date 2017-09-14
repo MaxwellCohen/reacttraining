@@ -39,10 +39,28 @@ class BookSearch extends Component {
     // To make `this` context work properly when the callback is invoked,
     // we force the bind the class instance's `this` to the function
     this.onInputChange = this.onInputChange.bind(this);
+    this.updateTitles = debounce(this.updateTitles, 200).bind(this);
   }
+
+  updateTitles(searchText) {
+    if (searchText) {
+      getBookTitles(searchText).then((titles)=>{ 
+        this.setState({
+              titles: titles
+            }
+        );
+      }, () => {});
+    } else {
+      this.setState({
+          titles: []
+        }
+      );
+    }
+  } 
 
   onInputChange(event) {
     const searchText = event.target.value;
+    this.updateTitles(searchText);
   }
 
   render() {
@@ -52,7 +70,7 @@ class BookSearch extends Component {
         <h1>Book Search</h1>
         <input className="BookSearch--text-input" type="text" onChange={this.onInputChange} placeholder="Enter a book title..." />
         <ul className="BookSearch--results">
-          {titles.map((title) => <div key={`title-${title}`}>{title}</div>)}
+          {titles.map((title) => <li key={`title-${title}`}>{title}</li>)}
         </ul>
       </div>
     );
